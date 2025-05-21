@@ -553,3 +553,88 @@ if (passenger.login(email, password)) {
 currentUser = &passenger;
 userRole = "Passenger";
 loggedIn = true;
+cout << "\nLogin successful! Welcome, " << admin.getName() << "!\n";
+dynamic_cast<Admin*>(currentUser)->adminMenu(flights, passengers);
+break;
+}
+}
+if (!loggedIn) {
+cout << "\nInvalid admin credentials!\n";
+}
+break;
+}
+case 2: { // Staff login
+string email, password;
+cout << "\nStaff Login\n";
+cout << "Email: ";
+getline(cin, email);
+cout << "Password: ";
+getline(cin, password);
+bool loggedIn = false;
+for (auto& staff : staffMembers) {
+if (staff.login(email, password)) {
+currentUser = &staff;
+userRole = "Staff";
+loggedIn = true;
+cout << "\nLogin successful! Welcome, " << staff.getName() << "!\n";
+dynamic_cast<Staff*>(currentUser)->staffMenu(flights, passengers);
+break;
+}
+}
+if (!loggedIn) {
+cout << "\nInvalid staff credentials!\n";
+}
+break;
+}
+case 3: { // Passenger login
+string email, password;
+cout << "\nPassenger Login\n";
+cout << "Email: ";
+getline(cin, email);
+cout << "Password: ";
+getline(cin, password);
+bool loggedIn = false;
+for (auto& passenger : passengers) {
+if (passenger.login(email, password)) {
+currentUser = &passenger;
+userRole = "Passenger";
+loggedIn = true;
+cout << "\nLogin successful! Welcome, " << passenger.getName() << "!\n";
+dynamic_cast<Passenger*>(currentUser)->passengerMenu(flights);
+break;
+}
+}
+if (!loggedIn) {
+cout << "\nInvalid passenger credentials!\n";
+}
+break;
+}
+case 4: { // Passenger registration
+string name, email, password;
+cout << "\nPassenger Registration\n";
+cout << "Name: ";
+getline(cin, name); 
+cout << "Email: ";
+getline(cin, email);
+cout << "Password: ";
+getline(cin, password);
+string id = "user" + to_string(passengers.size() + 1);
+passengers.emplace_back(id, name, email, password);
+passengers.back().registerUser();
+break;
+}
+case 5: { // View flights as guest
+User guest("guest", "Guest", "guest@example.com", "");
+cout << "\nAvailable Flights:\n";
+guest.searchFlights(flights);
+break;
+}
+case 6: // Exit
+cout << "\nThank you for using our Airline Reservation System!\n";
+return 0;
+default:
+cout << "\nInvalid choice! Please try again.\n";
+}
+}
+return 0;
+}
