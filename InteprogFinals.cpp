@@ -553,52 +553,6 @@ if (passenger.login(email, password)) {
 currentUser = &passenger;
 userRole = "Passenger";
 loggedIn = true;
-cout << "\nLogin successful! Welcome, " << admin.getName() << "!\n";
-dynamic_cast<Admin*>(currentUser)->adminMenu(flights, passengers);
-break;
-}
-}
-if (!loggedIn) {
-cout << "\nInvalid admin credentials!\n";
-}
-break;
-}
-case 2: { // Staff login
-string email, password;
-cout << "\nStaff Login\n";
-cout << "Email: ";
-getline(cin, email);
-cout << "Password: ";
-getline(cin, password);
-bool loggedIn = false;
-for (auto& staff : staffMembers) {
-if (staff.login(email, password)) {
-currentUser = &staff;
-userRole = "Staff";
-loggedIn = true;
-cout << "\nLogin successful! Welcome, " << staff.getName() << "!\n";
-dynamic_cast<Staff*>(currentUser)->staffMenu(flights, passengers);
-break;
-}
-}
-if (!loggedIn) {
-cout << "\nInvalid staff credentials!\n";
-}
-break;
-}
-case 3: { // Passenger login
-string email, password;
-cout << "\nPassenger Login\n";
-cout << "Email: ";
-getline(cin, email);
-cout << "Password: ";
-getline(cin, password);
-bool loggedIn = false;
-for (auto& passenger : passengers) {
-if (passenger.login(email, password)) {
-currentUser = &passenger;
-userRole = "Passenger";
-loggedIn = true;
 cout << "\nLogin successful! Welcome, " << passenger.getName() << "!\n";
 dynamic_cast<Passenger*>(currentUser)->passengerMenu(flights);
 break;
